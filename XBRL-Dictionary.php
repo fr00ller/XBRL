@@ -24,7 +24,7 @@
  */
 $utiltiesPath = isset( $_ENV['UTILITY_LIBRARY_PATH'] )
 	? $_ENV['UTILITY_LIBRARY_PATH']
-	: ( defined( 'UTILITY_LIBRARY_PATH' ) ? UTILITY_LIBRARY_PATH : __DIR__ . "/../utilities" );
+	: ( defined( 'UTILITY_LIBRARY_PATH' ) ? UTILITY_LIBRARY_PATH : ( class_exists( '\\TupleDictionary', true ) ? dirname( ( new \ReflectionClass( '\\TupleDictionary' ) )->getFileName() ) . '/' : __DIR__ . "/../utilities" ) );
 require_once "$utiltiesPath/tuple-dictionary.php";
 
 /**

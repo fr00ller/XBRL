@@ -88,7 +88,7 @@ class XBRL_Types extends \lyquidity\xml\schema\SchemaTypes
 	 */
 	public static function createJSONFile()
 	{
-		$xbrlSchemaFolder = dirname( __FILE__ ) . "/../xbrl";
+		$xbrlSchemaFolder = __DIR__;
 
 		$global = XBRL_Global::getInstance();
 		$global->useCache = true;

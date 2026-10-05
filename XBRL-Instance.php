@@ -50,7 +50,7 @@ use lyquidity\xml\QName;
  */
 $utilitiesPath = isset( $_ENV['UTILITIIES_LIBRARY_PATH'] )
 	? $_ENV['UTILITIES_LIBRARY_PATH']
-	: ( defined( 'UTILITIES_LIBRARY_PATH' ) ? UTILITIES_LIBRARY_PATH : __DIR__ . "/../utilities/" );
+	: ( defined( 'UTILITIES_LIBRARY_PATH' ) ? UTILITIES_LIBRARY_PATH : ( class_exists( '\\TupleDictionary', true ) ? dirname( ( new \ReflectionClass( '\\TupleDictionary' ) )->getFileName() ) . '/' : __DIR__ . "/../utilities/" ) );
 
 require_once $utilitiesPath . 'SimpleXMLElementToArray.php';
 require_once $utilitiesPath . 'tuple-dictionary.php';
