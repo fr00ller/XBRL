@@ -48,6 +48,7 @@ use lyquidity\XPath2\XPath2Item;
   * A class to process a formula definitions
   * http://www.xbrl.org/Specification/consistencyAssertions/REC-2009-06-22/consistencyAssertions-REC-2009-06-22.html#sec-processing-model
   */
+#[\AllowDynamicProperties]
 class ConsistencyAssertion extends AssertionSet
 {
 	/**

@@ -48,6 +48,7 @@ use XBRL\Formulas\Resources\Variables\VariableSet;
  * Main XBRL control class
  * @author Bill Seddon
  */
+#[\AllowDynamicProperties]
 class XBRL {
 
 	// Static variables
@@ -509,8 +510,8 @@ class XBRL {
 		if ( ! is_array( $xsd_entries ) || count( $xsd_entries ) === 0 ) return;
 
 		global $compiled_taxonomy_name_prefix;
-		if ( strpos( $compiled_taxonomy_name_prefix, '\\') !== false ) $compiled_taxonomy_name_prefix = str_replace( '\\', '/', $compiled_taxonomy_name_prefix );
-		if ( strpos( $compiled_taxonomy_name_prefix, './') ) $compiled_taxonomy_name_prefix = XBRL::normalizePath( $compiled_taxonomy_name_prefix );
+		if ( strpos( (string)$compiled_taxonomy_name_prefix, '\\') !== false ) $compiled_taxonomy_name_prefix = str_replace( '\\', '/', $compiled_taxonomy_name_prefix );
+		if ( strpos( (string)$compiled_taxonomy_name_prefix, './') ) $compiled_taxonomy_name_prefix = XBRL::normalizePath( $compiled_taxonomy_name_prefix );
 		XBRL::$xsd_to_compiled_map = array_merge( XBRL::$xsd_to_compiled_map, array_fill_keys( $xsd_entries, $compiled_taxonomy_name_prefix . $compiled_taxonomy_name ) );
 	}
 

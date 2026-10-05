@@ -57,6 +57,7 @@ use XBRL\Formulas\Resources\Filters\Filter;
 /**
  * Main class for formula evaluation
  */
+#[\AllowDynamicProperties]
 class XBRL_Formulas extends Resource
 {
 	/**

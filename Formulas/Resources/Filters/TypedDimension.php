@@ -42,6 +42,7 @@ use lyquidity\xml\MS\XmlNamespaceManager;
   * Implements the filter class for the ConceptName filter
   * http://www.xbrl.org/Specification/dimensionFilters/REC-2009-06-22/dimensionFilters-REC-2009-06-22+corrected-errata-2011-03-10.html#sec-explicit-dimension-filter
   */
+#[\AllowDynamicProperties]
 class TypedDimension extends Filter
 {
 	/**

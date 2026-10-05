@@ -66,6 +66,7 @@ use XBRL_Log;
 /**
   * A class to process a formula definitions
   */
+#[\AllowDynamicProperties]
 class Formula extends VariableSet
 {
  	/**

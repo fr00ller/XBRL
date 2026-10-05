@@ -92,6 +92,7 @@ class FactVariableBinding extends VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \XBRL\Formulas\VariableBinding::rewind()
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind()
 	{
 		$this->uncoveredAspectFacts = array();
@@ -103,6 +104,7 @@ class FactVariableBinding extends VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \XBRL\Formulas\VariableBinding::current()
 	 */
+	#[\ReturnTypeWillChange]
 	public function current()
 	{
 		$fact = parent::current();
@@ -135,6 +137,7 @@ class FactVariableBinding extends VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \Iterator::next()
 	 */
+	#[\ReturnTypeWillChange]
 	public function next()
 	{
 		$this->uncoveredAspectFacts = array();
@@ -146,6 +149,7 @@ class FactVariableBinding extends VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \Iterator::valid()
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid()
 	{
 		if ( parent::valid() )

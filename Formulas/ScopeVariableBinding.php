@@ -57,6 +57,7 @@ class ScopeVariableBinding extends FactVariableBinding
 	 * {@inheritDoc}
 	 * @see \XBRL\Formulas\FactVariableBinding::current()
 	 */
+	#[\ReturnTypeWillChange]
 	public function current()
 	{
 		// Calling the grandparent method
@@ -90,6 +91,7 @@ class ScopeVariableBinding extends FactVariableBinding
 	 * {@inheritDoc}
 	 * @see \XBRL\Formulas\FactVariableBinding::rewind()
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind()
 	{
 		$this->scopeFactGUID = null;
@@ -101,6 +103,7 @@ class ScopeVariableBinding extends FactVariableBinding
 	 * {@inheritDoc}
 	 * @see Iterator::next()
 	 */
+	#[\ReturnTypeWillChange]
 	public function next()
 	{
 		$this->scopeFactGUID = null;
@@ -112,6 +115,7 @@ class ScopeVariableBinding extends FactVariableBinding
 	 * {@inheritDoc}
 	 * @see Iterator::valid()
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid()
 	{
 		if ( parent::valid() )

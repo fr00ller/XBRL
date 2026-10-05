@@ -45,6 +45,7 @@ use lyquidity\xml\QName;
   * Implements an abstract class for variable binding that supports
   * iterating over facts and partitioning those facts.
   */
+#[\AllowDynamicProperties]
 class VariableBinding implements \Iterator
 {
 	/**
@@ -208,6 +209,7 @@ class VariableBinding implements \Iterator
 	/**
 	 * Implements the iterator rewind method
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind()
 	{
 		if ( is_null( $this->facts ) )
@@ -225,6 +227,7 @@ class VariableBinding implements \Iterator
 	/**
 	 * Implements the iterator current method
 	 */
+	#[\ReturnTypeWillChange]
 	public function current()
 	{
 		if ( is_null( $this->facts ) )
@@ -243,6 +246,7 @@ class VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \Iterator::key()
 	 */
+	#[\ReturnTypeWillChange]
 	public function key()
 	{
 		if ( is_null( $this->facts ) )
@@ -258,6 +262,7 @@ class VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \Iterator::next()
 	 */
+	#[\ReturnTypeWillChange]
 	public function next()
 	{
 		if ( is_null( $this->facts ) )
@@ -277,6 +282,7 @@ class VariableBinding implements \Iterator
 	 * {@inheritDoc}
 	 * @see \Iterator::valid()
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid()
 	{
 		if ( is_null( $this->facts ) )

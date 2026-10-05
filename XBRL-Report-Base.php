@@ -29,6 +29,7 @@
  * Abstract class to support the creation of XBRL reports
  *
  */
+#[\AllowDynamicProperties]
 abstract class XBRL_Report_Base
 {
 	/**

@@ -54,6 +54,7 @@ use lyquidity\XPath2\Iterator\BufferedNodeIterator;
  /**
   * A class to process a fact variable definitions
   */
+#[\AllowDynamicProperties]
 class FactVariable extends Variable
 {
 	/**

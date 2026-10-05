@@ -259,6 +259,7 @@ class InstanceFactsIterator extends XPath2NodeIterator implements \Iterator
 	 * Return this iterator
 	 * @return InstanceFactsIterator
 	 */
+	#[\ReturnTypeWillChange]
 	public function getIterator()
 	{
 		return $this;
