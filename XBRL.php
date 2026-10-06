@@ -3802,7 +3802,7 @@ class XBRL {
 					: null,
 				'isExtensionTaxonomy' => $this->context->isExtensionTaxonomy(),
 
-			), $prettyPrint ? JSON_PRETTY_PRINT : null
+			), $prettyPrint ? JSON_PRETTY_PRINT : 0
 		);
 	}
 
@@ -3847,7 +3847,7 @@ class XBRL {
 		}
 
 		return $encode
-			? json_encode( $store, $prettyPrint ? JSON_PRETTY_PRINT : null )
+			? json_encode( $store, $prettyPrint ? JSON_PRETTY_PRINT : 0 )
 			: $store;
 	}
 
