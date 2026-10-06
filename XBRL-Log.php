@@ -90,7 +90,23 @@ class XBRL_Log
 		return self::$instance;
 	}
 
-	/**
+		/**
+	 * Notify the observers attached to the log of an event.
+	 * pear/log up to 1.13 exposes Log::_announce(); from 1.14 the method is the
+	 * protected Log::announce(), so it is called in the scope of the log object.
+	 * @param array $event
+	 */
+	private function announce( array $event )
+	{
+		if ( method_exists( $this->log, '_announce' ) )
+		{
+			$this->log->_announce( $event );
+			return;
+		}
+		( function( array $event ) { $this->announce( $event ); } )->call( $this->log, $event );
+	}
+
+/**
 	 * Attach an observer to the log
 	 * @param \Log_observer $observer
 	 * @return boolean
@@ -300,7 +316,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$msg = sprintf( "[dimension] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		return $this->log->warning( $msg );
 	}
 
@@ -320,7 +336,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$msg = sprintf( "[taxonomy] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		return $this->log->warning( $msg );
 	}
 
@@ -340,7 +356,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->businessRulesViolationeWarning = true;
 		$msg = sprintf( "[business rules] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		return $this->log->warning( $msg );
 	}
 
@@ -360,7 +376,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$errorMessage = sprintf( "[formula] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		$this->log->warning( $errorMessage );
 		if ( isset( $source['error'] ) )
 		{
@@ -385,7 +401,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$errorMessage = $this->log->warning( sprintf( "[consistency assertion] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		if ( isset( $source['error'] ) )
 		{
 			throw FormulasException::withType( $source['error'], "consistency-assertion", $errorMessage );
@@ -409,7 +425,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$errorMessage = $this->log->warning( sprintf( "[value assertion] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		if ( isset( $source['error'] ) )
 		{
 			throw FormulasException::withType( $source['error'], "value-assertion", $errorMessage );
@@ -433,7 +449,7 @@ class XBRL_Log
 		if ( ! $this->log ) return;
 		$this->conformanceIssueWarning = true;
 		$errorMessage = sprintf( "[existence assertion] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		$this->log->warning( $errorMessage );
 		if ( isset( $source['error'] ) )
 		{
@@ -457,7 +473,7 @@ class XBRL_Log
 	{
 		if ( ! $this->log ) return;
 		$message = "$section $message";
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_INFO, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_INFO, 'message' => $message, 'source' => $source ) );
 		$this->log->info( $message );
 		return $message;
 	}
@@ -479,7 +495,7 @@ class XBRL_Log
 		$this->instanceValidationWarning = true;
 		// Concatenate the key and the value
 		$msg = sprintf( "[instance] $message (Section %s - %s)", $section, $this->arrayToDescription( $source ) );
-		$this->log->_announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
+		$this->announce( array( 'section' => $section, 'priority' => PEAR_LOG_WARNING, 'message' => $message, 'source' => $source ) );
 		return $this->log->warning( $msg );
 	}
 
